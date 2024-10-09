@@ -1,22 +1,23 @@
 'use client'
 
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {initCloudStorage, initHapticFeedback, useInitData} from "@telegram-apps/sdk-react";
 import CarInfoModal from "./components/CarInfoModal";
 import CarSelect from "./components/CarSelect";
-import {TCarHistoryResponse} from "./types";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { TCarHistory, TCarHistoryResponse } from "./types";
 
 export default function Home() {
   const [isInfoOpened, setIsInfoOpened] = useState(false)
-  const [carInfo, setCarInfo] = useState<TCarHistoryResponse | null>(null)
+  const [carInfo, setCarInfo] = useState<TCarHistory | null>(null)
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
 
   const hapticFeedback = initHapticFeedback()
   const initData = useInitData()
   const cloudStorage = initCloudStorage();
 
-  const handleOpenInfo = (newCarInfo: TCarHistoryResponse) => {
+  const handleOpenInfo = (newCarInfo: TCarHistory) => {
     hapticFeedback.impactOccurred("medium")
     if (!carInfo || newCarInfo.carName != carInfo.carName) {
       setCarInfo(newCarInfo)
@@ -37,27 +38,20 @@ export default function Home() {
     });
   }, []);
 
-  const fetchCarHistories = async (phoneNumber: string) => {
+  const fetchCarHistories = async () => {
+    if (!phoneNumber) return null;
+
     const response = await axios.get(`${process.env.NEXT_PUBLIC_APP_URI}/api/getCarHitoriesForAllCars?phone=${phoneNumber || ""}`)
-    return response.data as TCarHistoryResponse[] | null
+    return response.data as TCarHistoryResponse | null
   }
 
-  const [data, setData] = useState<unknown>()
-  const [isLoading, setIsLoading] = useState(true)
-  const fetchStarted = useRef(false)
+  const { data, isLoading, isError  } = useQuery({
+    queryKey: ['fetch car histories'],
+    queryFn: () => fetchCarHistories(),
+    enabled: !!phoneNumber
+	})
 
-  useEffect(() => {
-    if (!phoneNumber || fetchStarted.current) return;
-    fetchStarted.current = true
-
-    fetchCarHistories(phoneNumber)
-      .then((res: unknown) => {
-        setData(res)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }, [phoneNumber])
+  useEffect(() => {console.log(data)}, [data])
 
   return (
     <main className="flex flex-col gap-y-5">
@@ -67,22 +61,23 @@ export default function Home() {
       </p>
 
       <div className="flex flex-col gap-y-4">
-
         {isLoading ? (
           <>
-            <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse"/>
-            <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse"/>
-            <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse"/>
+            <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
+            <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
+            <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
           </>
-        ) : data && (data?.length || 0) > 0 ? (
-          data.map((carHistory, index) => (
+        ) : isError ? (
+          <p>Вибачте, сталася помилка при отриманні даних</p>
+        ) : data && data?.carList?.length > 0 ? (
+          data.carList.map((car, index) => (
             <CarSelect
               key={index}
-              carName={carHistory.carName}
-              carOperationsNumber={carHistory.carHistoryData?.length || 0}
-              lastOperation={carHistory.carHistoryData?.slice(-1)[0]?.date || 'No history'}
-              carMileage={carHistory.carMileage}
-              onClick={() => handleOpenInfo(carHistory)}
+              carName={car.carHistory.carName}
+              carOperationsNumber={car.carHistory.carHistoryData.length || 0}
+              lastOperation={car.carHistory.carHistoryData?.slice(-1)[0]?.date || "No history"}
+              carMileage={car.carHistory.carMileage}
+              onClick={() => handleOpenInfo(car.carHistory)}
             />
           ))
         ) : (

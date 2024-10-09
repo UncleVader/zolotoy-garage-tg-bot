@@ -4,12 +4,12 @@ import { initBackButton } from "@telegram-apps/sdk-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect } from "react"
 import CarInfoDropdown from "./CarInfoDropdown"
-import { TCarHistoryResponse } from "../types"
+import { TCarHistory } from "../types"
 
 type TCarInfoModalProps = {
     isOpened: boolean,
     handleClose: () => void,
-    carInfo: TCarHistoryResponse | null
+    carInfo: TCarHistory | null
 }
 
 export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoModalProps) {
