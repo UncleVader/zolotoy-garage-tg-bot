@@ -51,8 +51,6 @@ export default function Home() {
     enabled: !!phoneNumber
 	})
 
-  useEffect(() => {console.log(data)}, [data])
-
   return (
     <main className="flex flex-col gap-y-5">
       <p className="font-bold text-base">
@@ -69,7 +67,7 @@ export default function Home() {
           </>
         ) : isError ? (
           <p>Вибачте, сталася помилка при отриманні даних</p>
-        ) : data && data?.carList?.length > 0 ? (
+        ) : data && data.carList?.length > 0 ? (
           data.carList.map((car, index) => (
             <CarSelect
               key={index}
