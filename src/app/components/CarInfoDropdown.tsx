@@ -63,7 +63,7 @@ export default function CarInfoDropdown({carHistory}:{carHistory: TCarHistoryDat
                                     >
                                         <p className="text-xl font-bold">{carHistory.docInfo}</p>
                                         <ul className="flex flex-col gap-y-2">
-                                            {carHistory.rowList.map((row, index) => (
+                                            {carHistory.rowList?.map((row, index) => (
                                                 <li key={index} className={'flex justify-between text-sm'}>
                                                     <span>{`${index+1}. ${row.rowName}`}</span>
                                                     <span className={"whitespace-nowrap"}>{row.rowSum}</span>

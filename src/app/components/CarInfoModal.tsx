@@ -44,7 +44,7 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
 
                         <div className="flex flex-col gap-y-4 w-full">
                             {
-                                carInfo && carInfo.carHistoryData.map((data, index) => (
+                                carInfo && carInfo.carHistoryData?.map((data, index) => (
                                     <CarInfoDropdown 
                                     key={index}
                                     carHistory={data}
