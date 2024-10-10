@@ -5,8 +5,7 @@ import {
     bindViewportCSSVars, 
     initCloudStorage, 
     initMiniApp, 
-    initSwipeBehavior, 
-    useThemeParams, 
+    useThemeParams,
     useViewport 
 } from "@telegram-apps/sdk-react";
 import { ReactNode, useEffect } from "react";
