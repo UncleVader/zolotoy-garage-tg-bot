@@ -19,15 +19,7 @@ export default function TelegramProvider({ children }: { children: ReactNode }) 
 
     useEffect(() => {
         if (viewport) {
-            const handleResize = () => {
-                bindViewportCSSVars(viewport);
-            };
-
-            window.addEventListener('resize', handleResize);
-
-            return () => {
-                window.removeEventListener('resize', handleResize);
-            };
+          return bindViewportCSSVars(viewport);
         }
     }, [viewport]);
     
