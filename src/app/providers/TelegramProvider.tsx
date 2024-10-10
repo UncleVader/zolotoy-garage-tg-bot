@@ -17,12 +17,6 @@ export default function TelegramProvider({ children }: { children: ReactNode }) 
     const [miniApp] = initMiniApp();
     const cloudStorage = initCloudStorage();
 
-    // useEffect(() => {
-    //     if (viewport) {
-    //       return bindViewportCSSVars(viewport);
-    //     }
-    // }, [viewport]);
-
     useEffect(() => {
         if (viewport) {
             const handleResize = () => {
