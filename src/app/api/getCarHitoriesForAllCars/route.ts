@@ -5,20 +5,18 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
     const { searchParams } = new URL(req.url);
 
     try {
-        const phone = searchParams.get("phone") || "";
+        const phone = (searchParams.get("phone") || "").trim();
 
         if (!phone || typeof phone !== 'string') {
-            return NextResponse.json({ error: 'Phone parameter is required and must be a string' }, {status: 400});
+            const errorMessage = 'Phone parameter is required and must be a string'
+            console.error(errorMessage)
+            return NextResponse.json({ error: errorMessage }, {status: 400});
         }
 
-        const response = await axios.get(
-            `${process.env.API_ORIGINAL_SERVER_URL}/ClientHistory?=${process.env.API_BARCODE}`,
-            {
-                headers: {
-                    "do-not-limit-work-area-address": "true",
-                },
-            }
-        );
+        const url = `${process.env.API_ORIGINAL_SERVER_URL}/ClientHistory?phone=${phone}`
+        console.log(`getting history ${url}`)
+        const response = await axios.get(url);
+        console.log('got it')
 
         return NextResponse.json(response.data, {status: 200});
     } catch (error) {
