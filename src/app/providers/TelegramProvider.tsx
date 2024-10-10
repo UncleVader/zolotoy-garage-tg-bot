@@ -17,7 +17,6 @@ export default function TelegramProvider({ children }: { children: ReactNode }) 
     const themeParams = useThemeParams();
     const [miniApp] = initMiniApp();
     const cloudStorage = initCloudStorage();
-    const [swipeBehavior] = initSwipeBehavior();
 
     useEffect(() => {
         if (viewport) {
