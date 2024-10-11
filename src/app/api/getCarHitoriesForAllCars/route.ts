@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
             return NextResponse.json({ error: errorMessage }, {status: 400});
         }
 
-        const url = `${process.env.API_ORIGINAL_SERVER_URL}/ClientHistory?phone=${phone}`
+        const url = `${process.env.API_URL}/ClientHistory?phone=${phone}`
         console.log(`getting history ${url}`)
         const response = await axios.get(url);
         console.log('got it')
