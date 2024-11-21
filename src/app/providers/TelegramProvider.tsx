@@ -16,20 +16,6 @@ export default function TelegramProvider({ children }: { children: ReactNode }) 
     const themeParams = useThemeParams();
     const [miniApp] = initMiniApp();
     const cloudStorage = initCloudStorage();
-
-    // useEffect(() => {
-    //     if (viewport) {
-    //         const handleResize = () => {
-    //             bindViewportCSSVars(viewport);
-    //         };
-
-    //         window.addEventListener('resize', handleResize);
-
-    //         return () => {
-    //             window.removeEventListener('resize', handleResize);
-    //         };
-    //     }
-    // }, [viewport]);
     
     useEffect(() => {
         if (themeParams.bgColor) {

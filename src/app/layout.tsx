@@ -18,7 +18,7 @@ export default function RootLayout({children}:{children: ReactNode}) {
       </head>
       <body>
         <Providers>
-          <div className="full-screen-container fixed inset-0 flex flex-col justify-between overflow-hidden">
+          <div className="fixed inset-0 flex flex-col justify-between overflow-hidden">
             <Header />
             {children}
             <Footer />
