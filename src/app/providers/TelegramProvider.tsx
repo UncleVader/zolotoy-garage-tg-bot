@@ -2,7 +2,7 @@
 
 import { 
     bindThemeParamsCSSVars, 
-    bindViewportCSSVars, 
+    // bindViewportCSSVars, 
     initCloudStorage, 
     initMiniApp, 
     useThemeParams,
@@ -17,19 +17,19 @@ export default function TelegramProvider({ children }: { children: ReactNode }) 
     const [miniApp] = initMiniApp();
     const cloudStorage = initCloudStorage();
 
-    useEffect(() => {
-        if (viewport) {
-            const handleResize = () => {
-                bindViewportCSSVars(viewport);
-            };
+    // useEffect(() => {
+    //     if (viewport) {
+    //         const handleResize = () => {
+    //             bindViewportCSSVars(viewport);
+    //         };
 
-            window.addEventListener('resize', handleResize);
+    //         window.addEventListener('resize', handleResize);
 
-            return () => {
-                window.removeEventListener('resize', handleResize);
-            };
-        }
-    }, [viewport]);
+    //         return () => {
+    //             window.removeEventListener('resize', handleResize);
+    //         };
+    //     }
+    // }, [viewport]);
     
     useEffect(() => {
         if (themeParams.bgColor) {
