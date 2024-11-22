@@ -29,7 +29,7 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
     return (
         // <AnimatePresence>
         // {
-        //     isOpened && (
+            isOpened && (
         //         <motion.div 
         //         initial={{opacity: 0, x:'100%'}}
         //         animate={{opacity: 1, x:0}}
@@ -37,7 +37,7 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
         //         transition={{bounce: 0}}
         //         className="fixed inset-0 bg-tg-bg-color z-[999]"
         //         >
-                <div>
+                <div className="fixed inset-0 bg-tg-bg-color z-[999]">
                 
                     <div className="flex flex-col gap-y-5 p-5 w-full overflow-y-scroll h-full">
                         <p className="font-bold text-xl">Історія обслуговування</p>
@@ -57,7 +57,7 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
                     </div>
                 </div>
         //         </motion.div>
-        //     )
+            )
         // }
         // </AnimatePresence>
     )
