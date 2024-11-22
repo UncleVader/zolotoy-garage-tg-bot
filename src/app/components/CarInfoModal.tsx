@@ -1,7 +1,7 @@
 'use client'
 
 import { initBackButton } from "@telegram-apps/sdk-react"
-// import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useEffect } from "react"
 import CarInfoDropdown from "./CarInfoDropdown"
 import { TCarHistory } from "../types"
@@ -27,22 +27,19 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
     }, [isOpened])
 
     return (
-        // <AnimatePresence>
-        // {
+        <AnimatePresence>
+        {
             isOpened && (
-        //         <motion.div 
-        //         initial={{opacity: 0, x:'100%'}}
-        //         animate={{opacity: 1, x:0}}
-        //         exit={{opacity: 0, x:'-100%'}}
-        //         transition={{bounce: 0}}
-        //         className="fixed inset-0 bg-tg-bg-color z-[999]"
-        //         >
-                <div className="fixed inset-0 bg-tg-bg-color z-[999]">
-                
-                    <div className="flex flex-col gap-y-5 p-5 w-full overflow-y-scroll h-full">
+                <motion.div 
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+                className="fixed inset-0 bg-tg-bg-color z-[999]"
+                >
+                    <div className="p-5 w-full h-full overflow-y-scroll overflow-x-hidden">
                         <p className="font-bold text-xl">Історія обслуговування</p>
 
-                        <p className="font-semibold text-lg">{carInfo?.carName}</p>
+                        <p className="font-semibold my-5 text-lg">{carInfo?.carName}</p>
 
                         <div className="flex flex-col gap-y-4 w-full">
                             {
@@ -55,10 +52,9 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
                             }
                         </div>
                     </div>
-                </div>
-        //         </motion.div>
+                </motion.div>
             )
-        // }
-        // </AnimatePresence>
+        }
+        </AnimatePresence>
     )
 }
