@@ -1,18 +1,15 @@
 'use client';
 
 import { 
-    bindThemeParamsCSSVars, 
-    // bindViewportCSSVars, 
+    bindThemeParamsCSSVars,
     initCloudStorage, 
     initMiniApp, 
-    useThemeParams,
-    useViewport 
+    useThemeParams
 } from "@telegram-apps/sdk-react";
 import { ReactNode, useEffect } from "react";
 
 
 export default function TelegramProvider({ children }: { children: ReactNode }) {
-    const viewport = useViewport()
     const themeParams = useThemeParams();
     const [miniApp] = initMiniApp();
     const cloudStorage = initCloudStorage();
