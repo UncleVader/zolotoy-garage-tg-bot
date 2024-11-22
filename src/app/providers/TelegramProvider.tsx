@@ -2,10 +2,11 @@
 
 import { 
     bindThemeParamsCSSVars,
+    bindViewportCSSVars,
     initCloudStorage, 
-    initMiniApp, 
-    initSwipeBehavior, 
-    useThemeParams
+    initMiniApp,
+    useThemeParams,
+    useViewport
 } from "@telegram-apps/sdk-react";
 import { ReactNode, useEffect } from "react";
 
@@ -14,7 +15,17 @@ export default function TelegramProvider({ children }: { children: ReactNode }) 
     const themeParams = useThemeParams();
     const [miniApp] = initMiniApp();
     const cloudStorage = initCloudStorage();
-    const [swipeBehavior] = initSwipeBehavior();
+
+
+    const viewport = useViewport()
+
+    // rebinding vewport vars on window resize
+    useEffect(() => {
+        if (viewport) {
+          return bindViewportCSSVars(viewport);
+        }
+    }, [viewport]);
+
     
     useEffect(() => {
         if (themeParams.bgColor) {
@@ -23,10 +34,6 @@ export default function TelegramProvider({ children }: { children: ReactNode }) 
         }
         return bindThemeParamsCSSVars(themeParams);
     }, [themeParams]);
-
-    useEffect(() => {
-        swipeBehavior.disableVerticalSwipe();
-    }, []);
 
     useEffect(() => {
         cloudStorage.get('phone-number').then((storedPhoneNumber: string | null) => {

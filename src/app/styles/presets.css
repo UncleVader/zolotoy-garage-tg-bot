@@ -6,6 +6,18 @@
     user-select: none;
 }
 
+.modal-window {
+    position: fixed;
+    inset: 0;
+    background-color: var(--primary-bg-color);
+    height: var(--tg-viewport-stable-height, 100vh);
+    max-height: 100vh;
+    z-index: 999;
+    overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+    padding: 1.5rem;
+}
+
 html, body, #root {
     margin: 0;
     padding: 0;
