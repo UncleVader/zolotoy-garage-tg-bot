@@ -18,12 +18,10 @@ export default function RootLayout({children}:{children: ReactNode}) {
       </head>
       <body>
         <Providers>
-          <div className="fixed inset-0 flex flex-col full-screen-container overflow-hidden">
+          <div className="min-h-screen relative flex flex-col justify-between">
             <Header />
 
-            <div className="flex-1 overflow-y-auto relative overflow-scroll touch-scroll">
-              {children}
-            </div>
+            {children}
 
             <Footer />
           </div>
