@@ -1,7 +1,7 @@
 'use client'
 
 import { initBackButton } from "@telegram-apps/sdk-react"
-import { AnimatePresence, motion } from "framer-motion"
+// import { AnimatePresence, motion } from "framer-motion"
 import { useEffect } from "react"
 import CarInfoDropdown from "./CarInfoDropdown"
 import { TCarHistory } from "../types"
@@ -27,16 +27,18 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
     }, [isOpened])
 
     return (
-        <AnimatePresence>
-        {
-            isOpened && (
-                <motion.div 
-                initial={{opacity: 0, x:'100%'}}
-                animate={{opacity: 1, x:0}}
-                exit={{opacity: 0, x:'-100%'}}
-                transition={{bounce: 0}}
-                className="fixed inset-0 bg-tg-bg-color z-[999]"
-                >
+        // <AnimatePresence>
+        // {
+        //     isOpened && (
+        //         <motion.div 
+        //         initial={{opacity: 0, x:'100%'}}
+        //         animate={{opacity: 1, x:0}}
+        //         exit={{opacity: 0, x:'-100%'}}
+        //         transition={{bounce: 0}}
+        //         className="fixed inset-0 bg-tg-bg-color z-[999]"
+        //         >
+                <div>
+                
                     <div className="flex flex-col gap-y-5 p-5 w-full overflow-y-scroll h-full">
                         <p className="font-bold text-xl">Історія обслуговування</p>
 
@@ -53,9 +55,10 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
                             }
                         </div>
                     </div>
-                </motion.div>
-            )
-        }
-        </AnimatePresence>
+                </div>
+        //         </motion.div>
+        //     )
+        // }
+        // </AnimatePresence>
     )
 }
