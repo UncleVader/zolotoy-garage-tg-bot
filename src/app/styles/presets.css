@@ -19,10 +19,9 @@ html, body, #root {
 html, body {
     background-color: var(--primary-bg-color);
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
     height: var(--tg-viewport-stable-height, 100vh);
+    max-height: 100vh;
 }
 
 a {

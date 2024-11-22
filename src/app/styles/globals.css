@@ -10,3 +10,10 @@
 		@apply bg-tg-bg-color text-tg-text-color font-roboto
 	}
 }
+
+@layer utilities {
+	.full-screen-container {
+		height: var(--tg-viewport-stable-height, 100vh);
+		max-height: 100vh;
+	}
+}
