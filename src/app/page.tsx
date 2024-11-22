@@ -7,6 +7,7 @@ import CarSelect from "./components/CarSelect";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { TCarHistory, TCarHistoryResponse } from "./types";
+import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [isInfoOpened, setIsInfoOpened] = useState(false)
@@ -52,44 +53,57 @@ export default function Home() {
 	})
 
   return (
-    <>
-      <main className="flex flex-col gap-y-5 flex-1 overflow-y-auto relative p-4">
-        <p className="font-bold text-base">
-          Вітаю {(initData?.user?.firstName + ' ' + initData?.user?.lastName)?.trim()},
-          це історія обслуговування ваших авто
-        </p>
+    <AnimatePresence>
+        {
+          !isInfoOpened ?
+          (
+            <main className="flex flex-col gap-y-5 flex-1 overflow-y-auto relative p-4">
+                <p className="font-bold text-base">
+                  Вітаю {(initData?.user?.firstName + ' ' + initData?.user?.lastName)?.trim()},
+                  це історія обслуговування ваших авто
+                </p>
 
-        <div className="flex flex-col gap-y-4">
-          {isLoading ? (
-            <>
-              <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
-              <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
-              <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
-            </>
-          ) : isError ? (
-            <p>Вибачте, сталася помилка при отриманні даних</p>
-          ) : data && data.carList?.length > 0 ? (
-            data.carList.map((car, index) => (
-              <CarSelect
-                key={index}
-                carName={car.carHistory.carName}
-                carOperationsNumber={car.carHistory.carHistoryData.length || 0}
-                lastOperation={car.carHistory.carHistoryData?.slice(-1)[0]?.date || "No history"}
-                carMileage={car.carHistory.carMileage}
-                onClick={() => handleOpenInfo(car.carHistory)}
-              />
-            ))
-          ) : (
-            <p>Вибачте, але ми не можемо знайти ваші автомобілі</p>
-          )}
-        </div>
-      </main>
-
-      <CarInfoModal
-      isOpened={isInfoOpened}
-      handleClose={handleCloseInfo}
-      carInfo={carInfo}
-      />
-    </>
+                <div className="flex flex-col gap-y-4">
+                  {isLoading ? (
+                    <>
+                      <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
+                      <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
+                      <div className="w-full h-24 bg-tg-theme-hint-color rounded-xl animate-pulse" />
+                    </>
+                  ) : isError ? (
+                    <p>Вибачте, сталася помилка при отриманні даних</p>
+                  ) : data && data.carList?.length > 0 ? (
+                    data.carList.map((car, index) => (
+                      <CarSelect
+                        key={index}
+                        carName={car.carHistory.carName}
+                        carOperationsNumber={car.carHistory.carHistoryData.length || 0}
+                        lastOperation={car.carHistory.carHistoryData?.slice(-1)[0]?.date || "No history"}
+                        carMileage={car.carHistory.carMileage}
+                        onClick={() => handleOpenInfo(car.carHistory)}
+                      />
+                    ))
+                  ) : (
+                    <p>Вибачте, але ми не можемо знайти ваші автомобілі</p>
+                  )}
+                </div>
+            </main>
+          )
+          :
+          (
+          <CarInfoModal
+          isOpened={isInfoOpened}
+          handleClose={handleCloseInfo}
+          carInfo={carInfo}
+          />
+          )
+        }
+    </AnimatePresence>
+                // <motion.div 
+                // initial={{opacity: 0}}
+                // animate={{opacity: 1}}
+                // exit={{opacity: 0}}
+                // >
+      
   );
 }
