@@ -35,9 +35,9 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
                 animate={{opacity: 1, x:0}}
                 exit={{opacity: 0, x:'-100%'}}
                 transition={{bounce: 0}}
-                className="fixed inset-0 bg-tg-bg-color z-[999] overflow-y-scroll"
+                className="fixed inset-0 bg-tg-bg-color z-[999]"
                 >
-                    <div className="flex flex-col gap-y-5 p-5 w-full">
+                    <div className="flex flex-col gap-y-5 p-5 w-full overflow-y-scroll h-full">
                         <p className="font-bold text-xl">Історія обслуговування</p>
 
                         <p className="font-semibold text-lg">{carInfo?.carName}</p>
