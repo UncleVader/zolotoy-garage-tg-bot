@@ -36,7 +36,7 @@ export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoMo
                 exit={{opacity: 0}}
                 className="fixed inset-0 bg-tg-bg-color z-[999]"
                 >
-                    <div className="p-5 w-full h-full overflow-y-scroll overflow-x-hidden">
+                    <div className="p-5 w-full h-full overflow-y-scroll scrollbar-hide overflow-x-hidden">
                         <p className="font-bold text-xl">Історія обслуговування</p>
 
                         <p className="font-semibold my-5 text-lg">{carInfo?.carName}</p>

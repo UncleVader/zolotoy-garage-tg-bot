@@ -53,7 +53,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex flex-col gap-y-5 flex-1 overflow-y-auto relative p-4">
+      <main className="flex flex-col gap-y-5 flex-1 overflow-y-auto scrollbar-hide relative p-4">
         <p className="font-bold text-base">
           Вітаю {(initData?.user?.firstName + ' ' + initData?.user?.lastName)?.trim()},
           це історія обслуговування ваших авто

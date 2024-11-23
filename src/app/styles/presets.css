@@ -14,10 +14,6 @@ html, body {
     -webkit-overflow-scrolling: auto;
 }
 
-:root {
-    --safe-area-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh));
-}
-
 a {
     text-decoration: none;
 }
