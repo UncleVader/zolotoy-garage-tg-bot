@@ -10,13 +10,13 @@ export default function Footer() {
         <footer className="flex w-full px-4 pb-4">
             <ul className="w-full flex justify-around">
                 <li onClick={() => utils.openLink('https://www.instagram.com/zolotoy.garage')}>
-                    <SocialIcon network="instagram" bgColor="transparent" fgColor="var(--tg-theme-button-color)"/>
+                    <SocialIcon network="instagram" bgColor="transparent" fgColor="#8774e1"/>
                 </li>
                 <li onClick={() => utils.openTelegramLink('https://t.me/bmwgaragekyiv')}>
-                    <SocialIcon network="telegram" bgColor="transparent" fgColor="var(--tg-theme-button-color)"/>
+                    <SocialIcon network="telegram" bgColor="transparent" fgColor="#8774e1"/>
                 </li>
                 <li onClick={() => utils.openLink('https://zolotoygarage.com.ua')}>
-                    <SocialIcon network="sharethis" bgColor="transparent" fgColor="var(--tg-theme-button-color)"/>
+                    <SocialIcon network="sharethis" bgColor="transparent" fgColor="#8774e1"/>
                 </li>
             </ul>
         </footer>

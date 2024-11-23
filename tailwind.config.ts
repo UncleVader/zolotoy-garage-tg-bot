@@ -9,12 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-				'tg-bg-color': 'var(--tg-theme-bg-color)',
-        'tg-secondary-bg-color': 'var(--tg-theme-secondary-bg-color)',
-        'tg-theme-hint-color': 'var(--tg-theme-hint-color)',
-				'tg-text-color': 'var(--tg-theme-text-color)',
-        'tg-subtitle-text-color': 'var(--tg-theme-subtitle-text-color)',
-        'tg-button-color': 'var(--tg-theme-button-color)',
+        'tg-bg-color': '#212121',
+        'tg-secondary-bg-color': '#0f0f0f',
+        'tg-theme-hint-color': '#aaaaaa',
+        'tg-text-color': '#ffffff',
+        'tg-subtitle-text-color': '#aaaaaa',
+        'tg-button-color': '#8774e1',
 			},
       fontFamily: {
         'roboto': ['Roboto', 'sans-serif'],
@@ -24,6 +24,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 };
 export default config;

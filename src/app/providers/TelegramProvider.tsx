@@ -1,36 +1,24 @@
 'use client';
 
 import { 
-    bindThemeParamsCSSVars,
     initCloudStorage, 
     initMiniApp,
     initSwipeBehavior,
-    useThemeParams,
     useViewport
 } from "@telegram-apps/sdk-react";
 import { ReactNode, useEffect } from "react";
 
 
 export default function TelegramProvider({ children }: { children: ReactNode }) {
-    const themeParams = useThemeParams();
     const [miniApp] = initMiniApp();
     const cloudStorage = initCloudStorage();
     const [swipeBehavior] = initSwipeBehavior();
     const viewport = useViewport()
 
     useEffect(() => {
-        if (themeParams.bgColor) {
-            miniApp.setHeaderColor(themeParams.bgColor)
-            miniApp.setBgColor(themeParams.bgColor)
-        }
-        return bindThemeParamsCSSVars(themeParams);
-    }, [themeParams]);
-
-    useEffect(() => {
         if (viewport) {
             viewport.expand();
         }
-
         swipeBehavior.disableVerticalSwipe();
     }, []);
 
