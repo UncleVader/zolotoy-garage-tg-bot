@@ -45,7 +45,7 @@ export default function Home() {
           setPhoneNumber(phoneNumber)
           cloudStorage.set('phone-number', phoneNumber)
         })
-        .catch((err:any) => {
+        .catch((err:Error) => {
           console.log(err)
         });
       } else {
