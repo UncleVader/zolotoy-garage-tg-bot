@@ -1,7 +1,12 @@
 'use client'
 
 import {useEffect, useState} from "react";
-import {initCloudStorage, initHapticFeedback, useInitData} from "@telegram-apps/sdk-react";
+import {
+  initCloudStorage, 
+  initHapticFeedback, 
+  initMiniApp, 
+  useInitData
+} from "@telegram-apps/sdk-react";
 import CarInfoModal from "./components/CarInfoModal";
 import CarSelect from "./components/CarSelect";
 import axios from "axios";
@@ -16,6 +21,7 @@ export default function Home() {
   const hapticFeedback = initHapticFeedback()
   const initData = useInitData()
   const cloudStorage = initCloudStorage();
+  const [miniApp] = initMiniApp();
 
   const handleOpenInfo = (newCarInfo: TCarHistory) => {
     hapticFeedback.impactOccurred("medium")
@@ -31,12 +37,22 @@ export default function Home() {
   }
 
   useEffect(() => {
-    cloudStorage.get('phone-number').then((storedPhoneNumber) => {
-      setPhoneNumber(storedPhoneNumber);
-    }).catch((error) => {
-      console.error('Error fetching phone number from cloudStorage:', error)
-    });
-  }, []);
+    cloudStorage.get('phone-number').then((storedPhoneNumber: string | null) => {
+      if (!storedPhoneNumber) {
+        miniApp.requestContact()
+        .then(contact => {
+          const phoneNumber = contact.contact.phoneNumber;
+          setPhoneNumber(phoneNumber)
+          cloudStorage.set('phone-number', phoneNumber)
+        })
+        .catch((err:any) => {
+          console.log(err)
+        });
+      } else {
+        setPhoneNumber(storedPhoneNumber)
+      }
+    })
+  },[])
 
   const fetchCarHistories = async () => {
     if (!phoneNumber) return null;
