@@ -1,13 +1,12 @@
 'use client'
 
-import { initHapticFeedback } from "@telegram-apps/sdk-react"
+import { hapticFeedback } from "@telegram-apps/sdk-react"
 import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
 import { useState } from "react"
 import { TCarHistoryData } from "../types"
 
 export default function CarInfoDropdown({carHistory}:{carHistory: TCarHistoryData}) {
-    const hapticFeedback = initHapticFeedback()
     const [isExtended, setIsExtended] = useState(false)
 
     const toggleExtend = () => {

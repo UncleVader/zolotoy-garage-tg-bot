@@ -1,26 +1,24 @@
 'use client';
 
-import { 
-    initSwipeBehavior,
-    useViewport
+import {
+  swipeBehavior,
+  viewport
 } from "@telegram-apps/sdk-react";
-import { ReactNode, useEffect } from "react";
+import {ReactNode, useEffect} from "react";
 
 
-export default function TelegramProvider({ children }: { children: ReactNode }) {
-    const [swipeBehavior] = initSwipeBehavior();
-    const viewport = useViewport()
+export default function TelegramProvider({children}: { children: ReactNode }) {
 
-    useEffect(() => {
-        if (viewport) {
-            viewport.expand();
-        }
-        swipeBehavior.disableVerticalSwipe();
-    }, []);
+  useEffect(() => {
+    if (viewport) {
+      viewport.expand();
+    }
+    swipeBehavior.disableVertical();
+  }, []);
 
-    return (
-        <>
-            {children}
-        </>
-    ) 
+  return (
+    <>
+      {children}
+    </>
+  )
 }

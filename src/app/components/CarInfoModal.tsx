@@ -1,6 +1,6 @@
 'use client'
 
-import { initBackButton } from "@telegram-apps/sdk-react"
+import { backButton } from "@telegram-apps/sdk-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect } from "react"
 import CarInfoDropdown from "./CarInfoDropdown"
@@ -13,7 +13,6 @@ type TCarInfoModalProps = {
 }
 
 export default function CarInfoModal({isOpened, handleClose, carInfo}:TCarInfoModalProps) {
-    const [backButton] = initBackButton()
 
     useEffect(() => {
         if (isOpened) {

@@ -2,26 +2,23 @@
 
 import {useEffect, useState} from "react";
 import {
-  initCloudStorage, 
-  initHapticFeedback, 
-  initMiniApp, 
-  useInitData
+  cloudStorage,
+  hapticFeedback,
+  requestContact
 } from "@telegram-apps/sdk-react";
 import CarInfoModal from "./components/CarInfoModal";
 import CarSelect from "./components/CarSelect";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { TCarHistory, TCarHistoryResponse } from "./types";
+import {RequestedContact} from "@telegram-apps/sdk/src/scopes/utilities/privacy/requestContact";
 
 export default function Home() {
   const [isInfoOpened, setIsInfoOpened] = useState(false)
   const [carInfo, setCarInfo] = useState<TCarHistory | null>(null)
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+  const [contactInfo, setContactInfo] = useState<RequestedContact|null>(null)
 
-  const hapticFeedback = initHapticFeedback()
-  const initData = useInitData()
-  const cloudStorage = initCloudStorage();
-  const [miniApp] = initMiniApp();
 
   const handleOpenInfo = (newCarInfo: TCarHistory) => {
     hapticFeedback.impactOccurred("medium")
@@ -39,9 +36,11 @@ export default function Home() {
   useEffect(() => {
     cloudStorage.get('phone-number').then((storedPhoneNumber: string | null) => {
       if (!storedPhoneNumber) {
-        miniApp.requestContact()
+        requestContact()
         .then(contact => {
-          const phoneNumber = contact.contact.phoneNumber;
+          debugger
+          setContactInfo(contact)
+          const phoneNumber = contact?.contact?.phoneNumber;
           setPhoneNumber(phoneNumber)
           cloudStorage.set('phone-number', phoneNumber)
         })
@@ -71,7 +70,7 @@ export default function Home() {
     <>
       <main className="flex flex-col gap-y-5 flex-1 overflow-y-auto scrollbar-hide relative p-4">
         <p className="font-bold text-base">
-          Вітаю {(initData?.user?.firstName + ' ' + initData?.user?.lastName)?.trim()},
+          Вітаю {(contactInfo?.contact?.firstName + ' ' + contactInfo?.contact?.lastName)?.trim()},
           це історія обслуговування ваших авто
         </p>
 
